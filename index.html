@@ -4,27 +4,42 @@
   <meta charset="UTF-8">
   <title>Spokanicus Sector Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    body {
-      background-color: #111;
-      color: #eee;
-      font-family: 'Orbitron', 'Share Tech Mono', 'Courier New', monospace;
+    html, body, #map {
+      height: 100%;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-color: #111;
+      font-family: 'Orbitron', 'Share Tech Mono', 'Courier New', monospace;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 2px solid #444;
-      box-shadow: 0 0 12px #ff000040;
+    .leaflet-container {
+      background: #111;
     }
   </style>
 </head>
 <body>
-  <img src="Spokanicus Sector 0.5.png" alt="Spokanicus Sector Map">
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Set your image dimensions here
+    const mapWidth = 1920;  // width of your PNG
+    const mapHeight = 1080; // height of your PNG
+
+    const bounds = [[0, 0], [mapHeight, mapWidth]];
+
+    const map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -2,
+      maxZoom: 2,
+      zoomSnap: 0.25
+    });
+
+    map.fitBounds(bounds);
+
+    // Update the image path if needed
+    L.imageOverlay('Spokanicus Sector 0.5.png', bounds).addTo(map);
+  </script>
 </body>
 </html>
